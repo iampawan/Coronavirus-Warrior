@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "357611819169",
+    "firebase_url": "https://coronavirus-app-97ece.firebaseio.com",
+    "project_id": "coronavirus-app-97ece",
+    "storage_bucket": "coronavirus-app-97ece.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357611819169:android:1c94fd3ad195895ee1e0e0",
+        "android_client_info": {
+          "package_name": "com.mtechviral.coronavirus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357611819169-ri74pui7jpqkc32k2afh1rm9lku1js37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsGsVweDJZ2s4htb33_Y5KU_JSD5Wvqcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357611819169-ri74pui7jpqkc32k2afh1rm9lku1js37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
