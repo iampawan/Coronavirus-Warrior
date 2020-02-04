@@ -4,10 +4,20 @@ import 'package:coronavirus_app/pages/home_page.dart';
 import 'package:coronavirus_app/pages/myth_page.dart';
 import 'package:coronavirus_app/pages/protech_page.dart';
 import 'package:coronavirus_app/utils/coonst.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
+    ),
+  );
   runApp(MyApp());
 }
 
@@ -16,8 +26,12 @@ GlobalKey globalWebKey = GlobalKey();
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics analytics = FirebaseAnalytics();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
       theme: ThemeData(
           primarySwatch: Colors.red,
           primaryTextTheme:

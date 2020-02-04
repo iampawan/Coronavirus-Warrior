@@ -1,14 +1,22 @@
-import 'package:coronavirus_app/backend.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:coronavirus_app/pages/faq_page.dart';
 import 'package:coronavirus_app/pages/myth_page.dart';
 import 'package:coronavirus_app/pages/protech_page.dart';
 import 'package:coronavirus_app/utils/coonst.dart';
 import 'package:coronavirus_app/widgets/coronavirus_map_widget.dart';
 import 'package:coronavirus_app/widgets/number_widget.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'charts_page.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
+RemoteConfig remoteConfig;
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,11 +25,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   YoutubePlayerController _controller;
+  PackageInfo pkg;
   @override
   void initState() {
     super.initState();
-    Backend().setupBackend();
-    _controller?.dispose();
+    // Backend().setupBackend();
+    setRemoteConfig();
     _controller = YoutubePlayerController(
       initialVideoId: 'mOV1aBVYKGA',
       flags: YoutubePlayerFlags(
@@ -32,16 +41,71 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  setRemoteConfig() async {
+    pkg = await PackageInfo.fromPlatform();
+
+    remoteConfig = await RemoteConfig.instance;
+    await remoteConfig.fetch();
+    await remoteConfig.activateFetched();
+    setState(() {});
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   void dispose() {
+    remoteConfig.removeListener(() {});
     _controller.dispose();
     super.dispose();
   }
+
+  Widget socialActions(context) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(FontAwesomeIcons.facebookF),
+            onPressed: () async {
+              await _launchURL("https://facebook.com/imthepk");
+            },
+          ),
+          IconButton(
+            icon: Icon(FontAwesomeIcons.twitter),
+            onPressed: () async {
+              await _launchURL("https://twitter.com/imthepk");
+            },
+          ),
+          IconButton(
+            icon: Icon(FontAwesomeIcons.linkedinIn),
+            onPressed: () async {
+              _launchURL("https://linkedin.com/in/imthepk");
+            },
+          ),
+          IconButton(
+            icon: Icon(FontAwesomeIcons.youtube),
+            onPressed: () async {
+              await _launchURL("https://youtube.com/mtechviral");
+            },
+          ),
+        ],
+      );
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    var ago = "Last Updated - ";
+    try {
+      ago = ago + timeago.format(remoteConfig?.lastFetchTime);
+    } catch (e) {
+      ago = "";
+    }
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -50,7 +114,10 @@ class _HomePageState extends State<HomePage> {
           Center(
               child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Last updated 7 hours ago"),
+            child: AutoSizeText(
+              ago,
+              maxLines: 1,
+            ),
           )),
         ],
       ),
@@ -141,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                     controller: scrollController,
                     children: <Widget>[
                       NumberWidget(
-                          title: "20627",
+                          title: remoteConfig?.getString("cv_infected"),
                           subtitle: "\nINFECTED",
                           titleColor: Coonst.dangerColor,
                           subtitleColor: Coonst.dangerColor,
@@ -152,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                         children: <Widget>[
                           NumberWidget(
                               width: width * 0.5,
-                              title: "427",
+                              title: remoteConfig?.getString("cv_dead"),
                               subtitle: "\nDead",
                               titleColor: Colors.black,
                               subtitleColor: Colors.black45,
@@ -160,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                               subtitleFontSize: 20.0),
                           NumberWidget(
                               width: width * 0.5,
-                              title: "624",
+                              title: remoteConfig?.getString("cv_recovered"),
                               subtitle: "\nRecovered",
                               titleColor: Colors.black,
                               subtitleColor: Colors.black45,
@@ -168,7 +235,7 @@ class _HomePageState extends State<HomePage> {
                               subtitleFontSize: 20.0),
                           NumberWidget(
                               width: width * 0.5,
-                              title: "2.07%",
+                              title: remoteConfig?.getString("cv_fr"),
                               subtitle: "\nFatality Rate",
                               titleColor: Colors.black,
                               subtitleColor: Colors.black45,
@@ -176,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                               subtitleFontSize: 20.0),
                           NumberWidget(
                               width: width * 0.5,
-                              title: "3.03%",
+                              title: remoteConfig?.getString("cv_rr"),
                               subtitle: "\nRecovery Rate",
                               titleColor: Colors.black,
                               subtitleColor: Colors.black45,
@@ -184,6 +251,77 @@ class _HomePageState extends State<HomePage> {
                               subtitleFontSize: 20.0),
                         ],
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text.rich(
+                            TextSpan(
+                                text: "#coronavirus",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.blue,
+                                    ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    _launchURL(
+                                        "https://twitter.com/hashtag/coronovirus?lang=en");
+                                  }),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text.rich(
+                            TextSpan(
+                                text: "#nCoV2019",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.blue,
+                                    ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    _launchURL(
+                                        "https://twitter.com/hashtag/nCoV2019?lang=en");
+                                  }),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      socialActions(context),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      FlatButton(
+                          textColor: Coonst.appColor,
+                          onPressed: () {
+                            showAboutDialog(
+                                context: context,
+                                applicationName: Coonst.app_name,
+                                applicationVersion: "v${pkg.version}",
+                                children: [
+                                  Text(
+                                    "Credits",
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
+                                  ),
+                                  Text(
+                                    "World Health Organisation",
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                  Text(
+                                    "Coronavirus App @Scriby",
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                ]);
+                          },
+                          child: Text("Credits & Sources")),
                     ],
                   ),
                 );
@@ -191,6 +329,13 @@ class _HomePageState extends State<HomePage> {
             ),
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+          await remoteConfig.activateFetched();
+        },
+        child: Icon(Icons.refresh),
       ),
     );
   }
