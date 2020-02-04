@@ -20,6 +20,13 @@ class Coonst {
   static String appKey = "ckey_3137dd17b50348029a5db413978";
 
   static const String supportUrl = "https://frontierwallet.com/support.html";
+  static String mapUrl = Uri.dataFromString(
+          '<html><body><iframe style="width:100%"; width="560" height="380" src="https://coronavirus.app/map?mode=infected&embed=true" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>',
+          mimeType: 'text/html')
+      .toString();
+
+  static String fireStoreImageUrl(String imageName) =>
+      "https://firebasestorage.googleapis.com/v0/b/coronavirus-app-97ece.appspot.com/o/$imageName.png?alt=media&token=712e717d-ce67-47e2-91cc-01cc6d27aba2";
 
   static checkDebug() {
     assert(() {
