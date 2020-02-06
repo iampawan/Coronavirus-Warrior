@@ -9,7 +9,7 @@ class ChartsPage extends StatelessWidget {
     Factory(() => EagerGestureRecognizer()),
   ].toSet();
   final url1 = Uri.dataFromString(
-          '<html><body><iframe style="width:100%"; width="560" height="390" src="https://coronavirus.app/chart/evolution/infected" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>',
+          '<html><body><iframe style="width:100%"; width="560" height="700" src="https://coronavirus.app/chart/evolution/infected" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>',
           mimeType: 'text/html')
       .toString();
   final url2 = Uri.dataFromString(
@@ -17,11 +17,11 @@ class ChartsPage extends StatelessWidget {
           mimeType: 'text/html')
       .toString();
   final url3 = Uri.dataFromString(
-          '<html><body><iframe style="width:100%"; width="560" height="390" src="https://coronavirus.app/chart/evolution/dead" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>',
+          '<html><body><iframe style="width:100%"; width="560" height="700" src="https://coronavirus.app/chart/evolution/dead" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>',
           mimeType: 'text/html')
       .toString();
   final url4 = Uri.dataFromString(
-          '<html><body><iframe style="width:100%"; width="560" height="390" src="https://coronavirus.app/chart/evolution/recovered" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>',
+          '<html><body><iframe style="width:100%"; width="560" height="700" src="https://coronavirus.app/chart/evolution/recovered" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>',
           mimeType: 'text/html')
       .toString();
   @override

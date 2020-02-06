@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
     pkg = await PackageInfo.fromPlatform();
 
     remoteConfig = await RemoteConfig.instance;
-    await remoteConfig.fetch();
+    await remoteConfig.fetch(expiration: const Duration(seconds: 0));
     await remoteConfig.activateFetched();
     setState(() {});
   }
@@ -109,6 +109,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
+        centerTitle: false,
         title: Text("Coronavirus App"),
         actions: <Widget>[
           Center(
@@ -122,6 +123,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Stack(
+        fit: StackFit.expand,
         children: <Widget>[
           Column(
             children: <Widget>[
@@ -181,17 +183,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Container(
-                height: height * 0.55,
-                width: width,
-                padding: const EdgeInsets.all(8),
-                child: Card(
-                  elevation: 0.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  child: CoronavirusMapWidget(),
-                ),
-              ),
+              Container(height: height * 0.5, child: CoronavirusMapWidget()),
             ],
           ),
           SizedBox.expand(

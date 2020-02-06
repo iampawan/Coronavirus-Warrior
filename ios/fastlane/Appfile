@@ -1,0 +1,8 @@
+app_identifier("com.mtechviral.coronavirus") # The bundle identifier of your app
+apple_id("pawan221b@gmail.com") # Your Apple email address
+
+itc_team_id("120250315") # App Store Connect Team ID
+team_id("D8AULE2JAX") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

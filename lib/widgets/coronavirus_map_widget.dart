@@ -15,7 +15,7 @@ class CoronavirusMapWidget extends StatelessWidget {
   ].toSet();
 
   final url = Uri.dataFromString(
-          '<html><body><iframe style="width:100%"; width="560" height="380" src="https://coronavirus.app/map?mode=infected&embed=true" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>',
+          '<html><body><iframe style="width:100%"; width="560" height="900" src="https://coronavirus.app/map?mode=infected&embed=true" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>',
           mimeType: 'text/html')
       .toString();
 
@@ -24,6 +24,8 @@ class CoronavirusMapWidget extends StatelessWidget {
     return WebView(
       key: globalWebKey,
       initialUrl: url,
+      userAgent:
+          "Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>",
       gestureRecognizers: gestureRecognizers,
       javascriptMode: JavascriptMode.unrestricted,
     );
