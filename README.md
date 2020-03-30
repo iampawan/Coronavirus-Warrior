@@ -10,7 +10,7 @@ Download the app from [here](https://school.mtechviral.com/coronavirus-warrior-a
 
 ### Show some :heart: and star the repo.
 
-[![GitHub followers](https://img.shields.io/github/followers/iampawan.svg?style=social&label=Follow)](https://github.com/iampawan/)
+[![GitHub followers](https://img.shields.io/github/followers/iampawan.svg?style=social&label=Follow)](https://github.com/iampawan/Coronavirus-Warrior)
 [![Twitter Follow](https://img.shields.io/twitter/follow/imthepk.svg?style=social)](https://twitter.com/imthepk)
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://opensource.org/licenses/Apache-2.0)
@@ -31,8 +31,12 @@ Download the app from [here](https://school.mtechviral.com/coronavirus-warrior-a
 
 <img height="480px" src="ss/co3.png">
 <br/>
-<img height="320px" src="ss/co1.png"><img height="320" src="ss/co2.png"> <img height="320" src="ss/co4.png">
-
+<p float="left">
+  <img src="ss/co1.png" width="200" />
+  <img src="ss/co2.png" width="200" />
+  <img src="ss/co4.png" width="200" />
+ 
+</p>
 
 # Contributing
 
@@ -77,7 +81,6 @@ Google Developer Expert for Flutter. Passionate #Flutter, #Android Developer. #E
 > If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of :coffee:
 >
 > - [PayPal](https://www.paypal.me/imthepk/)
-
 
 A few resources to get you started if this is your first Flutter project:
 
