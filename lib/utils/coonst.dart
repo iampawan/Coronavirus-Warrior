@@ -4,9 +4,9 @@ import 'package:coronavirus_app/utils/tools.dart';
 import 'package:flutter/material.dart';
 
 class Coonst {
-  static const String app_name = "Coronavirus App";
-  static const String app_version = "Version 1.0.0";
-  static const int app_version_code = 1;
+  static const String app_name = "Corona Warrior";
+  static const String app_version = "Version 1.0.1";
+  static const int app_version_code = 2;
   static Color appColor = Tools.hexToColor("#8A2387");
   static Color dangerColor = Tools.hexToColor("#ED213A");
   static Color whitishColor = Tools.hexToColor("#f3f3f3");

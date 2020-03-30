@@ -48,6 +48,10 @@ class ChartsPage extends StatelessWidget {
               height: height * 0.5,
               child: WebView(
                 initialUrl: url2,
+                onWebViewCreated: (controller) {
+                  controller.evaluateJavascript(
+                      ('setCookie("in_app=true; path=/");'));
+                },
                 gestureRecognizers: gestureRecognizers,
                 javascriptMode: JavascriptMode.unrestricted,
               ),
