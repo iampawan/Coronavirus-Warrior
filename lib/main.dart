@@ -4,8 +4,10 @@ import 'package:coronavirus_app/pages/home_page.dart';
 import 'package:coronavirus_app/pages/myth_page.dart';
 import 'package:coronavirus_app/pages/protech_page.dart';
 import 'package:coronavirus_app/utils/coonst.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +20,10 @@ Future main() async {
       systemNavigationBarColor: Colors.transparent,
     ),
   );
-  runApp(MyApp());
+  runApp(DevicePreview(
+    enabled: false,
+    builder: (context) => MyApp(),
+  ));
 }
 
 GlobalKey globalWebKey = GlobalKey();
